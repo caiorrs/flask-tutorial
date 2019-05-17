@@ -32,7 +32,7 @@ def create():
 
         if not title:
             error = 'Title is required'
-        if error is None:
+        if error is not None:
             flash(error)
         else:
             db = get_db()
@@ -50,7 +50,7 @@ def create():
 def get_post(id, check_author=True):
     post = get_db().execute(
         'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author = u.id'
+        ' FROM post p JOIN user u ON p.author_id = u.id'
         ' WHERE p.id = ?',
         (id,)
     ).fetchone()
